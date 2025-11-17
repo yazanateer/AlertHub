@@ -1,0 +1,9 @@
+package com.alerthub.logger.repository;
+
+import com.alerthub.logger.model.LogEntry;
+import com.alerthub.logger.model.LogLevel;
+
+
+public class LogEntryRepository extends MongoRepository<LogEntry, String>{
+
+}

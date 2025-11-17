@@ -1,0 +1,5 @@
+package com.alerthub.logger.repository;
+
+public class LogEntryRepository {
+
+}

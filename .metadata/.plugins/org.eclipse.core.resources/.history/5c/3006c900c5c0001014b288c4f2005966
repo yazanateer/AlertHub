@@ -1,0 +1,3 @@
+spring.application.name=LoggerMS
+
+server.port=8081

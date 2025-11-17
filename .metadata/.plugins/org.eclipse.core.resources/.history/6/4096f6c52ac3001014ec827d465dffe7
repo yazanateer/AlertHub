@@ -1,0 +1,5 @@
+package com.alerthub.logger.model;
+
+public enum LogLevel {
+
+}

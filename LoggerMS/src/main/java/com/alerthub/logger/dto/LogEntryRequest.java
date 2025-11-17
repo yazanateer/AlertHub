@@ -1,0 +1,23 @@
+package com.alerthub.logger.dto;
+
+import com.alerthub.logger.model.LogLevel;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+
+
+@Data
+public class LogEntryRequest {
+
+	@NotBlank
+	private String serviceName;
+	
+	@NotNull
+	private LogLevel loglevel;
+	
+	@NotBlank	
+	private String message;
+
+	
+}

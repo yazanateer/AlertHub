@@ -1,0 +1,5 @@
+package com.alerthub.logger.service;
+
+public class LogService {
+
+}
