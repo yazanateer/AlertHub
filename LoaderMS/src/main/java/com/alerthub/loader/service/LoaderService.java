@@ -5,7 +5,5 @@ import com.alerthub.loader.model.PlatformInformation;
 
 public interface LoaderService {
 
-	public PlatformInformation createTestRecord();
-	
 	public ScanResult scan();
 }

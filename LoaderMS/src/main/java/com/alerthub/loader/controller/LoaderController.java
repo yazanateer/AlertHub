@@ -18,10 +18,6 @@ public class LoaderController {
 
 	private final LoaderService loaderService;
 	
-	@PostMapping("/test")
-	public PlatformInformation createTestRecord() {
-		return loaderService.createTestRecord();
-	}
 	
 	@PostMapping("scan")
 	public ScanResult scan() {

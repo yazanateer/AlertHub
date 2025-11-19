@@ -7,5 +7,5 @@ import com.alerthub.loader.model.ProviderType;
 
 public interface FileDiscoveryService {
 
-	Optional<Path> findLatestFileForProvider(ProviderType provider);
+	public Optional<Path> findLatestFileForProvider(ProviderType provider);
 }
