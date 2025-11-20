@@ -13,9 +13,9 @@ public interface MetricService {
 	
 	List<MetricResponse> getMetricByUser(int userId);
 	
-	MetricResponse getMetricById(UUID id, Integer userId);
+	MetricResponse getMetricById(Long id, Integer userId);
 
-    MetricResponse updateMetric(UUID id, Integer userId, MetricUpdateRequest request);
+    MetricResponse updateMetric(Long id, Integer userId, MetricUpdateRequest request);
 
-    void deleteMetric(UUID id, Integer userId);
+    void deleteMetric(Long id, Integer userId);
 }

@@ -5,7 +5,7 @@ import java.util.UUID;
 import com.alerthub.metric.model.Label;
 
 public record MetricResponse(
-			UUID id,
+			Long id,
 	        Integer userId,
 	        String name,
 	        Label label,

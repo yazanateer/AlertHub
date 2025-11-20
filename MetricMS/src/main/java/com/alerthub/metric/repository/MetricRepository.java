@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.alerthub.metric.model.Metric;
 
 @Repository
-public interface MetricRepository extends JpaRepository<Metric, UUID>{
+public interface MetricRepository extends JpaRepository<Metric, Long>{
 
 	List<Metric> findByUserId(int userId);
 	
-	Optional<Metric> findByIdAndUserId(UUID id, Integer userId);
+	Optional<Metric> findByIdAndUserId(Long id, Integer userId);
 	
     boolean existsByUserIdAndName(Integer userId, String name);
 

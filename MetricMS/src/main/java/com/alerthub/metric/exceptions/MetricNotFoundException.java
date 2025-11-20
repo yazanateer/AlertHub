@@ -7,7 +7,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 public class MetricNotFoundException extends ResponseStatusException {
 
-    public MetricNotFoundException(UUID id) {
+    public MetricNotFoundException(Long id) {
         super(HttpStatus.NOT_FOUND, "Metric not found with id: " + id);
     }
 }

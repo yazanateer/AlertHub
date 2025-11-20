@@ -10,4 +10,8 @@ public class MetricAlreadyExistsException extends ResponseStatusException {
 	public MetricAlreadyExistsException(int id) {
         super(HttpStatus.NOT_FOUND, "Metric not found with id: " + id);
     }
+	
+	public MetricAlreadyExistsException(String name) {
+        super(HttpStatus.NOT_FOUND, "Metric not found with name: " + name);
+    }
 }

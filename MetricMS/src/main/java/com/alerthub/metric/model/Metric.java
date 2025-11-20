@@ -25,8 +25,8 @@ import lombok.NoArgsConstructor;
 public class Metric {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.UUID)
-	private UUID id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 	
 	@Column(name="user_id")
 	private int userId;
