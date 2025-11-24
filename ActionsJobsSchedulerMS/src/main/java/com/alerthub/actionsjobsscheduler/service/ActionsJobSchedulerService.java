@@ -4,11 +4,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alerthub.actionsjobsscheduler.model.RunOnDay;
+import com.alerthub.actionsjobsscheduler.kafka.JobEvent;
+import com.alerthub.actionsjobsscheduler.kafka.KafkaTopics;
 import com.alerthub.actionsjobsscheduler.model.Action;
 import com.alerthub.actionsjobsscheduler.repository.ActionRepository;
 
@@ -21,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ActionsJobSchedulerService {
 
 	private final ActionRepository actionRepository;
+	private final KafkaTemplate<String, JobEvent> kafkaTemplate;
 	
 	
     @Scheduled(cron = "0 0/30 * * * *")
@@ -52,10 +56,29 @@ public class ActionsJobSchedulerService {
         }
 
         for (Action action : dueActions) {
-            log.info("Action is due -> id={} name={} to={} type={}",
-                    action.getId(), action.getName(), action.getTo(), action.getActionType());
-
+            JobEvent event = JobEvent.builder()
+            		.actionId(action.getId())
+	        		.userId(action.getUserId())
+	                .to(action.getTo())
+	                .message(action.getMessage())
+	                .actionType(action.getActionType())
+	                .condition(action.getCondition())
+	                .runOnDay(action.getRunOnDay())
+	                .runOnTime(action.getRunOnTime())
+	                .build();
+            //send to kafka (producer)
+            kafkaTemplate.send(
+            		KafkaTopics.ACTION_JOBS_TOPIC,
+            		action.getId().toString(),
+            		event
+            		);
+            
+            log.info("Sent JobEvent to Kafka | topic={} | key={} | to={}",
+                    KafkaTopics.ACTION_JOBS_TOPIC,
+                    action.getId(),
+                    action.getTo());
+            
             action.setLastRun(now);
-        }
+	    }
     }
 }
