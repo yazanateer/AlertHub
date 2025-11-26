@@ -8,7 +8,11 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
+		<item key="replaceBarOpen" value="false"/>
 		<list key="findhistory">
+			<item value="uuid"/>
+			<item value="UUID"/>
+			<item value="findLatestFileForProvider"/>
 			<item value="rq"/>
 			<item value="logger_db"/>
 		</list>

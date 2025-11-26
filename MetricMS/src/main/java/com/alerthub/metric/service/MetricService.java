@@ -9,6 +9,7 @@ import com.alerthub.metric.dto.MetricUpdateRequest;
 
 public interface MetricService {
 
+
 	MetricResponse createMetric(MetricCreateRequest request);
 	
 	List<MetricResponse> getMetricByUser(int userId);

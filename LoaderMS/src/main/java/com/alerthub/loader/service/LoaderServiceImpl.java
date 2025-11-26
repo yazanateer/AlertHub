@@ -32,7 +32,10 @@ public class LoaderServiceImpl implements LoaderService{
 	private final FileDiscoveryService fileDiscoveryService;
 	private final ProcessedFileRepository processedFileRepository;
 
-	
+	    public List<PlatformInformation> getAll() {
+	        return platformInformationRepository.findAll();
+	    }
+		 
 	 	@Override
 	    public ScanResult scan() {
 	 		LocalDateTime now = LocalDateTime.now();
