@@ -1,6 +1,9 @@
 package com.alerthub.loader.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,4 +26,14 @@ public class LoaderController {
 	public ScanResult scan() {
 		return loaderService.scan();
 	}
+	
+	@GetMapping("/hello")
+    public String sayHello() {
+        return "Hello from LoaderMS";
+    }
+	
+	@GetMapping("/platform-information")
+    public List<PlatformInformation> getAll() {
+        return loaderService.getAll();
+    }
 }
