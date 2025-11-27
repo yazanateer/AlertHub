@@ -1,5 +1,6 @@
 package com.alerthub.evaluation.service.impl;
 
+import com.alerthub.evaluation.clients.LoaderClient;
 import com.alerthub.evaluation.dto.DeveloperLabelCountResponse;
 import com.alerthub.evaluation.dto.DeveloperTaskCountResponse;
 import com.alerthub.evaluation.dto.LabelAggregationResponse;
@@ -19,9 +20,14 @@ import java.util.List;
 public class EvaluationServiceImpl implements EvaluationService {
 
     private final PlatformInformationRepository platformRepo;
+    private final LoaderClient loaderClient;   // OpenFeign client to LoaderMS
 
     @Override
     public DeveloperLabelCountResponse findDeveloperWithMostLabel(String label, int sinceDays) {
+        // 1) Ask LoaderMS to sync latest platform information for this time window
+        loaderClient.syncPlatformInformation(sinceDays);
+
+        // 2) Query our local platformInformation DB
         LocalDateTime since = LocalDateTime.now().minusDays(sinceDays);
 
         DeveloperLabelCountProjection projection =
@@ -40,6 +46,9 @@ public class EvaluationServiceImpl implements EvaluationService {
 
     @Override
     public List<LabelAggregationResponse> aggregateLabelsForDeveloper(Long developerId, int sinceDays) {
+        // Sync first
+        loaderClient.syncPlatformInformation(sinceDays);
+
         LocalDateTime since = LocalDateTime.now().minusDays(sinceDays);
         List<LabelCountProjection> list =
                 platformRepo.aggregateLabelsForDeveloperSince(developerId, since);
@@ -59,6 +68,9 @@ public class EvaluationServiceImpl implements EvaluationService {
 
     @Override
     public DeveloperTaskCountResponse countTasksForDeveloper(Long developerId, int sinceDays) {
+        // Sync first
+        loaderClient.syncPlatformInformation(sinceDays);
+
         LocalDateTime since = LocalDateTime.now().minusDays(sinceDays);
         long count = platformRepo.countTasksForDeveloperSince(developerId, since);
 

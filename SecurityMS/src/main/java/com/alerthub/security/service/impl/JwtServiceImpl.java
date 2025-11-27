@@ -94,6 +94,7 @@ public class JwtServiceImpl implements JwtService {
         Map<String, Object> claims = Map.of(
                 "userId", user.getId(),
                 "email", user.getEmail(),
+                "phone", user.getPhone(),
                 "roles", details.getAuthorities().stream()
                         .map(a -> a.getAuthority())
                         .toList()

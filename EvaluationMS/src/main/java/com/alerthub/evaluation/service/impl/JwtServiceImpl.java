@@ -54,7 +54,14 @@ public class JwtServiceImpl implements JwtService {
         Object email = extractAllClaims(token).get("email");
         return email != null ? email.toString() : null;
     }
+    
+    @Override
+    public String extractPhone(String token) {
+        Object phone = extractAllClaims(token).get("phone");
+        return phone != null ? phone.toString() : null;
+    }
 
+    
     @Override
     public Collection<? extends GrantedAuthority> extractAuthorities(String token) {
         Claims claims = extractAllClaims(token);

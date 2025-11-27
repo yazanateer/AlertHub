@@ -12,6 +12,8 @@ public interface JwtService {
     Long extractUserId(String token);
 
     String extractEmail(String token);
+    
+    String extractPhone(String phone);
 
     Collection<? extends GrantedAuthority> extractAuthorities(String token);
 
