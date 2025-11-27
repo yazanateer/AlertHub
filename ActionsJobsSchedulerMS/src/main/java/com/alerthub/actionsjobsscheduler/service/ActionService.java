@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alerthub.actionsjobsscheduler.dto.ActionCreateRequest;
 import com.alerthub.actionsjobsscheduler.dto.ActionResponse;
+import com.alerthub.actionsjobsscheduler.dto.ActionUpdateRequest;
 import com.alerthub.actionsjobsscheduler.model.Action;
 import com.alerthub.actionsjobsscheduler.repository.ActionRepository;
 
@@ -71,5 +72,40 @@ public class ActionService {
                 .lastUpdate(a.getLastUpdate())
                 .lastRun(a.getLastRun())
                 .build();
+    }
+    
+    @Transactional
+    public ActionResponse updateAction(UUID id, ActionUpdateRequest request) {
+        Action action = actionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Action not found"));
+
+        if (request.getName() != null)
+            action.setName(request.getName());
+        if (request.getCondition() != null)
+            action.setCondition(request.getCondition());
+        if (request.getTo() != null)
+            action.setTo(request.getTo());
+        if (request.getActionType() != null)
+            action.setActionType(request.getActionType());
+        if (request.getRunOnTime() != null)
+            action.setRunOnTime(request.getRunOnTime());
+        if (request.getRunOnDay() != null)
+            action.setRunOnDay(request.getRunOnDay());
+        if (request.getMessage() != null)
+            action.setMessage(request.getMessage());
+        if (request.getEnabled() != null)
+            action.setEnabled(request.getEnabled());
+
+        action.setLastUpdate(LocalDateTime.now());
+
+        return toResponse(actionRepository.save(action));
+    }
+    
+    @Transactional
+    public void deleteAction(UUID id) {
+        if (!actionRepository.existsById(id)) {
+            throw new RuntimeException("Action not found");
+        }
+        actionRepository.deleteById(id);
     }
 }
